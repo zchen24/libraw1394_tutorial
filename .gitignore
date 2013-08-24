@@ -11,3 +11,12 @@
 *.lai
 *.la
 *.a
+
+# Ignore build dir
+build
+
+# Qt file
+*.txt.user
+
+# emacs
+*~
