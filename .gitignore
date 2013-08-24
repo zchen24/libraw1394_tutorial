@@ -20,3 +20,8 @@ build
 
 # emacs
 *~
+
+# doxygen
+html
+latex
+Doxyfile

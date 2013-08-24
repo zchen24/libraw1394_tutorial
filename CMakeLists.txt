@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 
-project(raw1394_tutorial)
+project(libraw1394_tutorial)
 
 # Set the ouptut path for the libraries and executables
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(main1394 src/main1394.cpp)
 target_link_libraries(main1394 raw1394)
+
+add_executable(0_getting_started src/0_getting_started.cpp)
+target_link_libraries(0_getting_started raw1394)
 
