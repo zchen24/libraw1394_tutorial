@@ -1,7 +1,7 @@
 ---
 layout: default
 title: History
-permalink: /history/
+permlink: history
 prev_section: contributing
 ---
 
