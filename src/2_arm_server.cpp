@@ -144,7 +144,9 @@ int main(int argc, char** argv)
     int access_mode = RAW1394_ARM_WRITE|RAW1394_ARM_READ;   // allow read and write transaction
 
     rc = raw1394_arm_register(handle,  // fw handle
-                              arm_start_addr, arm_length, arm_init_buffer,  // arm buffer
+                              arm_start_addr, // arm start address
+			      arm_length * 4, // arm_length quadlet * 4 to bytes
+			      arm_init_buffer,  // arm init buffer value
                               (octlet_t) &arm_reqhandle,  // arm request handler
                               access_mode,   // access permission
                               access_mode,   // client handler will be notified
