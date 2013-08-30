@@ -11,3 +11,6 @@ target_link_libraries(main1394 raw1394)
 add_executable(0_getting_started src/0_getting_started.cpp)
 target_link_libraries(0_getting_started raw1394)
 
+add_executable(1_bus_reset src/1_bus_reset.cpp)
+target_link_libraries(1_bus_reset raw1394)
+

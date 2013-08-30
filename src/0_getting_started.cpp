@@ -52,34 +52,40 @@ int main(int argc, char** argv)
     numPorts = raw1394_get_port_info(handle, portInfo, maxport);
 
     // display port info
+    std::cout << "Found the following ports:" << std::endl;
+    for (int i = 0; i < numPorts; i++) {
+        std::cout << "  port " << i << ": " << portInfo[i].name
+                  << "  has " << portInfo[i].nodes << " nodes" << std::endl;
+    }
 
+    // ask user to select nodes
+    int port = -1;
+    while (true) {
+        std::cout << "\nPlease select handle port: " << std::endl
+                  << "  >>> ";
+        std::cin >> port;
+
+        if (port >= 0 && port < numPorts) {
+            break;
+        } else {
+            std::cout << "Invalid port number, please reenter" << std::endl;
+        }
+    }
 
     // let user to choose which port to use
-    rc = raw1394_set_port(handle, 0);
+    rc = raw1394_set_port(handle, port);
     if (rc) {
         std::cerr << "**** Error: failed to set port " << strerror(errno) << std::endl;
-    }
-
-    // WARNING: from now on, get/set port should NOT be used on this handle
-
-    // sample use of the handle
-    quadlet_t data;
-    nodeid_t localId = raw1394_get_local_id(handle);
-    rc = raw1394_read(handle, localId,
-                      CSR_REGISTER_BASE + CSR_CONFIG_ROM, 4, &data);
-    if (rc) {
-        std::cerr << "**** Error: failed to read quadlet " << strerror(errno) << std::endl;
+        return EXIT_FAILURE;
     } else {
-        std::cout << "Config rom 0 = " << std::hex << data << std::endl;
+        std::cout << "Set handle on port " << port << " success" << std::endl;
     }
 
+    // show number of ports
+    int numNodes;
+    numNodes = raw1394_get_nodecount(handle);
+    std::cout << numNodes << " nodes are connected to this port" << std::endl;
 
-    // broadcast
-    nodeid_t broadcastId = 0xffc2;
-    rc = raw1394_write(handle, broadcastId, 0, 4, &data);
-    if (rc) {
-        std::cerr << "**** Error: failed to write broadcast " << strerror(errno) << std::endl;
-    }
 
     // clean up & exit
     raw1394_destroy_handle(handle);
