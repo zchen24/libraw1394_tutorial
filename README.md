@@ -1,7 +1,8 @@
 libraw1394_tutorial
 ===================
 
-Tutorial for libraw1394 
+Tutorial for libraw1394   
+http://zchen24.github.io/libraw1394_tutorial/
 
 
 ## About this project
