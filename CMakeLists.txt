@@ -17,8 +17,10 @@ target_link_libraries(1_bus_reset raw1394)
 add_executable(2_arm_server src/2_arm_server.cpp)
 target_link_libraries(2_arm_server raw1394)
 
-#add_executable(3_async_client src/3_async_client.cpp)
-#target_link_libraries(3_async_client raw1394)
+add_executable(3_async_client src/3_async_client.cpp)
+target_link_libraries(3_async_client raw1394)
 
+#add_executable(4_async_broadcast src/4_async_broadcast.cpp)
+#target_link_libraries(4_async_broadcast raw1394)
 
 

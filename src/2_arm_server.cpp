@@ -104,6 +104,7 @@ int main(int argc, char** argv)
     int numPorts = raw1394_get_port_info(handle, NULL, 0);
     if (port < 0 || port >= numPorts) {
         std::cerr << "Invalid port number" << std::endl;
+        return EXIT_FAILURE;
     }
 
     // let user to choose which port to use
@@ -118,6 +119,12 @@ int main(int argc, char** argv)
     // set bus reset handler
     bus_reset_handler_t old_bus_reset_handler;
     old_bus_reset_handler = raw1394_set_bus_reset_handler(handle, my_bus_reset_handler);
+
+
+
+    // ----------------------------------------------------------------------------
+    // Start tutorial 2 arm server
+    // ----------------------------------------------------------------------------
 
 
     // -------- Register arm register to handle arm request --------
@@ -192,6 +199,10 @@ int main(int argc, char** argv)
 
 
     // --------- Infinite raw1394 event loop ----------
+
+    std::cout << "--------- Now start arm server -----------" << std::endl;
+    std::cout << " node id = " << raw1394_get_local_id(handle) << std::endl;
+
     while (true)
     {
         raw1394_loop_iterate(handle);
