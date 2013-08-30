@@ -128,19 +128,19 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     } else {
         std::cout << "Write quadlet " << std::hex << data_write
-                  << " to " << arm_start_addr << std::endl;
+                  << "  addr = " << arm_start_addr << std::endl;
     }
 
     // quadlet read, now read the value back
     quadlet_t data_read = 0x0000;  // init to 0x0000
-    rc = raw1394_write(handle, server_nodeid, arm_start_addr, 4, &data_read);
+    rc = raw1394_read(handle, server_nodeid, arm_start_addr, 4, &data_read);
     if (rc) {
         std::cerr << "****Error: failed to read quadlet, errno = "
                   << strerror(errno) << std::endl;
         return EXIT_FAILURE;
     } else {
-        std::cout << "Read quadlet " << std::hex << data_read
-                  << " from " << arm_start_addr << std::endl;
+        std::cout << "Read  quadlet " << std::hex << data_read
+                  << "  addr = " << arm_start_addr << std::endl;
     }
 
     // block write
@@ -156,7 +156,7 @@ int main(int argc, char** argv)
     } else {
         std::cout << "Write block: " << std::hex;
         for (size_t i = 0; i < data_block_write_size; i++) {
-            std::cout << " " << data_block_write_buffer[i] << std::endl;
+            std::cout << " " << data_block_write_buffer[i];
         }
         std::cout << std::endl;
     }
@@ -170,9 +170,9 @@ int main(int argc, char** argv)
                   << strerror(errno) << std::endl;
         return EXIT_FAILURE;
     } else {
-        std::cout << "Read block: " << std::hex;
+        std::cout << "Read  block: " << std::hex;
         for (size_t i = 0; i < data_block_write_size; i++) {
-            std::cout << " " << data_block_read_buffer[i] << std::endl;
+            std::cout << " " << data_block_read_buffer[i];
         }
         std::cout << std::endl;
     }
