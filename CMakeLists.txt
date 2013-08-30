@@ -14,3 +14,11 @@ target_link_libraries(0_getting_started raw1394)
 add_executable(1_bus_reset src/1_bus_reset.cpp)
 target_link_libraries(1_bus_reset raw1394)
 
+add_executable(2_arm_server src/2_arm_server.cpp)
+target_link_libraries(2_arm_server raw1394)
+
+#add_executable(3_async_client src/3_async_client.cpp)
+#target_link_libraries(3_async_client raw1394)
+
+
+

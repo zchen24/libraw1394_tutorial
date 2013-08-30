@@ -42,6 +42,8 @@ int my_bus_reset_handler(raw1394handle_t h, unsigned int gen)
     nodeid_t id = raw1394_get_local_id(h);
     std::cout << "Reset bus to gen " << gen << " local id " << id << std::endl;
 
+    // NOTE: you MUST call this function, otherwise the gen in handle is stale
+    //       and followin transactions from this handle will not be taken by the kernel
     // update handle gen value
     raw1394_update_generation(h, gen);
 }
@@ -102,7 +104,8 @@ int main(int argc, char** argv)
     // -------- Set FireWire bus reset handler --------
 
     // set bus reset handler
-    raw1394_set_bus_reset_handler(handle, my_bus_reset_handler);
+    bus_reset_handler_t old_bus_reset_handler;
+    old_bus_reset_handler = raw1394_set_bus_reset_handler(handle, my_bus_reset_handler);
 
 
     // --------- Infinite raw1394 event loop ----------
