@@ -2,8 +2,8 @@
 layout: default
 title: Broadcast packets
 permalink: /broadcast/
-prev_section: introduction
-next_section: history
+prev_section: async_client
+next_section: 
 ---
 
 ## Brief 

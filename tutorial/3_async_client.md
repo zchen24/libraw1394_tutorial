@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Broadcast packets
-permalink: /broadcast/
-prev_section: introduction
-next_section: history
+title: Asynchronous Client
+permalink: /async_client/
+prev_section: arm_server
+next_section: broadcast
 ---
 
 ## Brief 

@@ -1,0 +1,21 @@
+
+<hr class="featurette-divider">
+
+<div class="tutorial_nav">
+  <!-- back -->
+  {% if page.prev_section != null %}
+  <a href="{{ site.baseurl }}/tutorial/{{ page.prev_section }}" class="btn btn-primary btn-nav">Back</a>
+  {% else %}
+  <button type="button" class="btn btn-primary btn-nav" disabled="disabled">Back</button>
+  {% endif %}
+
+  <!-- add space between buttons -->
+  &nbsp; &nbsp; 
+  
+  <!-- next -->
+  {% if page.next_section != null %}
+  <a href="{{ site.baseurl }}/tutorial/{{ page.next_section }}" class="btn btn-primary btn-nav">Next</a>
+  {% else %}
+  <button type="button" class="btn btn-primary btn-nav" disabled="disabled">Next</button>
+  {% endif %}
+</div>  

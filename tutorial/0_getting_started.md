@@ -2,8 +2,7 @@
 layout: default
 title: Getting Started
 permalink: /getting_started/
-prev_section: introduction
-next_section: history
+next_section: bus_reset
 ---
 
 ## Goal
