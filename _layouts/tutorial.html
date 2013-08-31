@@ -3,16 +3,21 @@ layout: default
 ---
 
 <div class="row">
-  <div class="col-xs-12 col-sm-9">
+
+  <div class="col-xs-12 col-sm-8">
     {{ content }}
 
-    {% include tutorial_nav.html %}
   </div> <!-- /span -->
   
-  <hr>
+  <hr style="display: none;">
 
   {% include tutorial_contents.html %}
 
 </div> <!-- row -->
+
+<div class="container">
+  {% include tutorial_nav.html %}
+</div> 
+
 
 

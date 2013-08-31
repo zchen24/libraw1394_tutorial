@@ -1,7 +1,7 @@
 
-<hr class="featurette-divider">
+<hr style="display: none;">
 
-<div class="tutorial_nav">
+<div class="tutorial_nav" style="margin-top: 30px;">
   <!-- back -->
   {% if page.prev_section != null %}
   <a href="{{ site.baseurl }}/tutorial/{{ page.prev_section }}" class="btn btn-primary btn-nav">Back</a>
@@ -18,4 +18,4 @@
   {% else %}
   <button type="button" class="btn btn-primary btn-nav" disabled="disabled">Next</button>
   {% endif %}
-</div>  
+</div> 
