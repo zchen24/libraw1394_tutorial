@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Asynchronous Client
 permalink: /async_client/
 prev_section: arm_server

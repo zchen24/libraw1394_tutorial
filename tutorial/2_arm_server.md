@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: ARM Server
 permalink: /arm_server/
 prev_section: bus_reset

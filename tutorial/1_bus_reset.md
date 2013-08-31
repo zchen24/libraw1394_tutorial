@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Bus reset
 permalink: /bus_reset/
 prev_section: getting_started

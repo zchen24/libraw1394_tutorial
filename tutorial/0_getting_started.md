@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Getting Started
 permalink: /getting_started/
 next_section: bus_reset

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: tutorial
 title: Broadcast packets
 permalink: /broadcast/
 prev_section: async_client
