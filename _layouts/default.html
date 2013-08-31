@@ -1,14 +1,24 @@
 {% include top.html %}
 
     <body>
+      <!-- header -->
+      {% include header.html %}
+
+      <!-- content -->
       <div class="container">
-        {% include header.html %}
-        
-        {{ content }}
 
-        {% include tutorial_nav.html %}
+        <div class="row">
+          <div class="col-xs-12 col-sm-9">
+            {{ content }}
+            
+            {% include tutorial_nav.html %}
+          </div> <!-- /span -->
 
-      </div> <!-- /container -->
+          {% include tutorial_contents.html %}
+
+        </div> <!-- row -->
+
+      </div> <!--/container-->
 
       <div class="container">
         {% include footer.html %}
