@@ -54,9 +54,9 @@ read and write this device and you need to `sudo ./program` run sample code. To
 avoid this, we need to create a group, add yourself to the group and set the
 device permission to `660`.
 
+[How to set device permission](https://trac.lcsr.jhu.edu/mechatronics/wiki/DevelopmentEnvironment#a3.2Setpermissionfor1394device)
 
-
-<br><br>
+<br>
 
 ## Download libraw1394 source code
 <hr>
@@ -78,9 +78,7 @@ wget https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.10.10.tar.xz
 <br><br>
 ## Download tutorial code
 <hr>
-Go to [download page](../../#Download)
-
-
+<a href="../../#Download" class="btn btn-primary btn-lg btn-dl">Download Tutorial</a>
 
 
 
