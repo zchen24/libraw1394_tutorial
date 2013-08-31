@@ -13,11 +13,11 @@ This project is a byproduct, while I am learning to use libraw1394, which has a 
 
 ### 1 Initialize FireWire handle and
 
-### 2 Asynchronous Quadlet/Block Read/Write
+### 2 Address Range Map server
 
-### 3 Asynchronous tag handler 
+### 3 Asynchronous read/write 
 
-### 4 Respond to Asynchronous read/write/lock request
+### 4 Asynchronous broadcast
 
 ### 5 Isochronous write
 
@@ -28,3 +28,8 @@ This project is a byproduct, while I am learning to use libraw1394, which has a 
 
 ## Refernce  
 Put all references here
+
+## Contact
+Zihan Chen  
+zihan.chen@jhu.edu  
+
