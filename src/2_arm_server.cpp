@@ -145,15 +145,16 @@ int main(int argc, char** argv)
 
     rc = raw1394_arm_register(handle,  // fw handle
                               arm_start_addr, // arm start address
-			      arm_length * 4, // arm_length quadlet * 4 to bytes
-			      arm_init_buffer,  // arm init buffer value
+                              arm_length * 4, // arm_length quadlet * 4 to bytes
+                              arm_init_buffer,  // arm init buffer value
                               (octlet_t) &arm_reqhandle,  // arm request handler
                               access_mode,   // access permission
                               access_mode,   // client handler will be notified
                               0);            // client handler will need to handle these transactions
 
     if (rc) {
-        std::cerr << "**** Error: failed to setup arm register, error " << strerror(errno) << std::endl;
+        std::cerr << "**** Error: failed to setup arm register, error "
+                  << strerror(errno) << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -164,11 +165,12 @@ int main(int argc, char** argv)
 
     rc = raw1394_arm_get_buf(handle, arm_start_addr, arm_read_size, arm_read_buffer);
     if (rc) {
-        std::cerr << "**** Error: failed to read arm register, error " << strerror(errno) << std::endl;
+        std::cerr << "**** Error: failed to read arm register, error "
+                  << strerror(errno) << std::endl;
         return EXIT_FAILURE;
     } else {
         // if success then print value
-        std::cout << "ARM buffer read value: \n";
+        std::cout << "ARM buffer read value: "; 
         for (size_t i = 0; i < arm_read_size; i++) {
             std::cout << std::hex << " " << (int)arm_read_buffer[i];
         }
@@ -182,6 +184,12 @@ int main(int argc, char** argv)
     if (rc) {
         std::cerr << "**** Error: failed to set arm register, error " << strerror(errno) << std::endl;
         return EXIT_FAILURE;
+    } else {
+        std::cout << "ARM buffer set  value: ";
+        for (size_t i = 0; i < arm_read_size; i++) {
+            std::cout << std::hex << " " << (int)arm_write_buffer[i];
+        }
+        std::cout << std::endl;
     }
 
 
@@ -192,7 +200,7 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     } else {
         // if success then print value
-        std::cout << "ARM buffer read value: \n";
+        std::cout << "ARM buffer read value: ";
         for (size_t i = 0; i < arm_read_size; i++) {
             std::cout << std::hex << " " << (int)arm_read_buffer[i];
         }
@@ -202,8 +210,10 @@ int main(int argc, char** argv)
 
     // --------- Infinite raw1394 event loop ----------
 
-    std::cout << "--------- Now start arm server -----------" << std::endl;
-    std::cout << " node id = " << raw1394_get_local_id(handle) << std::endl;
+    std::cout << "--------- Now start arm server -----------" << std::endl
+              << " node id = " << raw1394_get_local_id(handle) << std::endl
+              << " address = 0x" << std::hex << arm_start_addr
+              << "   size = " << std::dec << arm_length << std::endl;
 
     while (true)
     {

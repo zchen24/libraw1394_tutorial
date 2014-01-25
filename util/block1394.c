@@ -67,6 +67,7 @@ int main(int argc, char** argv)
     signal(SIGINT, signal_handler);
 
     int isQuad1394 = (strstr(argv[0], "quad1394") != 0);
+    int isDebug = 0;   // default not debug mode
 
     port = 0;
     node = 0;
@@ -75,15 +76,17 @@ int main(int argc, char** argv)
     args_found = 0;
     for (i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
-          if (argv[i][1] == 'p') {
+            if (argv[i][1] == 'p') {
                 port = atoi(argv[i]+2);
                 printf("Selecting port %d\n", port);
-          }
-          else if (argv[i][1] == 'n') {
+            }
+            else if (argv[i][1] == 'n') {
                 node = atoi(argv[i]+2);
                 printf("Selecting node %d\n", node);
-          }
-
+            }
+            else if (argv[i][1] == 'd') {
+                isDebug = 1;
+            }
         }
         else {
             if (args_found == 0)
@@ -110,9 +113,9 @@ int main(int argc, char** argv)
 
     if (args_found < 1) {
         if (isQuad1394)
-            printf("Usage: %s [-pP] [-nN] <address in hex> [value to write in hex]\n", argv[0]);
+            printf("Usage: %s [-pP] [-nN] [-d] <address in hex> [value to write in hex]\n", argv[0]);
         else
-            printf("Usage: %s [-pP] [-nN] <address in hex> <size in quadlets> [write data quadlets in hex]\n", argv[0]);
+            printf("Usage: %s [-pP] [-nN] [-d] <address in hex> <size in quadlets> [write data quadlets in hex]\n", argv[0]);
         printf("       where P = port number, N = node number\n");
         exit(0);
     }
@@ -147,7 +150,9 @@ int main(int argc, char** argv)
 
     // get local id and printf libraw1394 version & local_node_id for debugging
     nodeid_t id = raw1394_get_local_id(handle);
-    printf("libraw1394_version = %s  local_node_id = %x\n", raw1394_get_libversion(), id);
+    if (isDebug) {
+        printf("libraw1394_version = %s  local_node_id = %x\n", raw1394_get_libversion(), id);
+    }
 
     /* get number of nodes connected to current port/handle */
     int nnodes = raw1394_get_nodecount(handle);    
@@ -187,7 +192,7 @@ int main(int argc, char** argv)
 
     // Free memory if it was dynamically allocated
     if (data != &data1)
-         free(data);
+        free(data);
 
     raw1394_destroy_handle(handle);
     return 0;
