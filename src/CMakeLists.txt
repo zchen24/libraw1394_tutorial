@@ -5,7 +5,8 @@ set(PROGRAMS
   2_arm_server
   3_async_client
   4_async_broadcast
-  5_iso_recv)
+  5_iso_recv
+  6_iso_xmit)
 
 foreach(program ${PROGRAMS})
   add_executable(${program} ${program}.cpp)

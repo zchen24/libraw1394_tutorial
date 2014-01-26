@@ -11,12 +11,8 @@
 #include <libraw1394/csr.h>
 
 
-#define BUFFER 1000
-#define PACKET_MAX 4096
-
-
 /**
-  * @brief: Tutorial 5: Isochronous broadcast Write
+  * @brief: Tutorial 6: Isochronous Transmit
   *
   *     This tutorial shows how to use asynchronous quedlet/block broadcast write.
   *         - to run this example
@@ -40,6 +36,12 @@
   */
 
 
+#define BUFFER 1000
+#define MAX_PACKET 4096
+#define BUF_SIZE 4096
+#define BUF_HEAD 8
+
+
 // Global variable fw handle
 raw1394handle_t handle;
 
@@ -54,19 +56,33 @@ int my_bus_reset_handler(raw1394handle_t h, unsigned int gen)
 }
 
 
+//raw1394_iso_disposition
+//my_iso_recv_handler(raw1394handle_t handle,
+//                    unsigned char *data,
+//                    unsigned int len,
+//                    unsigned char channel,
+//                    unsigned char tag,
+//                    unsigned char sy,
+//                    unsigned int cycle,
+//                    unsigned int dropped)
+//{
+//    std::cout << "channel = " << channel << std::endl;
+
+//    // see raw1394_iso_disposition
+//    return RAW1394_ISO_OK;
+//}
+
+//raw1394_iso_xmit_handler_t
 raw1394_iso_disposition
-my_iso_recv_handler(raw1394handle_t handle,
+my_iso_xmit_handler(raw1394handle_t handle,
                     unsigned char *data,
-                    unsigned int len,
-                    unsigned char channel,
-                    unsigned char tag,
-                    unsigned char sy,
-                    unsigned int cycle,
+                    unsigned int *len,
+                    unsigned char *tag,
+                    unsigned char *sy,
+                    int cycle, /* -1 if unknown */
                     unsigned int dropped)
 {
-    std::cout << "channel = " << channel << std::endl;
-
-    // see raw1394_iso_disposition
+    std::cout << "xmit tag = " << &tag << std::endl;
     return RAW1394_ISO_OK;
 }
 
@@ -144,30 +160,63 @@ int main(int argc, char** argv)
 
 
     // ----------------------------------------------------------------------------
-    // Start tutorial 4 async broadcast
+    // Start tutorial 6 isochronous send
     // ----------------------------------------------------------------------------
 
     /**
+     * raw1394_iso_xmit_init - initialize isochronous transmission
+     * @handle: libraw1394 handle
+     * @handler: handler function for queueing packets
+     * @buf_packets: number of isochronous packets to buffer
+     * @max_packet_size: largest packet you need to handle, in bytes
+     * (not including the isochronous header)
+     * @channel: isochronous channel on which to transmit
+     * @speed: speed at which to transmit
+     * @irq_interval: maximum latency of wake-ups, in packets (-1 if you don't care)
      *
-     */
-    // ----- receving end -------------
-    unsigned char channel = 0x5;
-    raw1394_iso_dma_recv_mode mode = RAW1394_DMA_DEFAULT;
+     * Allocates all user and kernel resources necessary for isochronous transmission.
+     * Channel and bandwidth allocation at the IRM is not performed.
+     *
+     * Returns: 0 on success or -1 on failure (sets errno)
+     **/
+    size_t length;
+    unsigned char channel, tag, sy;
+    unsigned char buffer[BUF_SIZE + BUF_HEAD];
+    channel = 5;
+    tag = 6;
+    sy = 7;
 
-    raw1394_iso_recv_init(handle,
-                          my_iso_recv_handler,
-                          BUFFER,      // buf_packets
-                          PACKET_MAX,  // max_packet_size
-                          channel,     // channel
-                          mode,        // dma mode
-                          -1);         // irq_interval
+    // ----- transmitting end -------------
+    rc = raw1394_iso_xmit_init(handle,      // 1394 handle
+                               NULL,        // xmit handler
+                               BUFFER,      // iso packets to buffer
+                               MAX_PACKET,  // max packet size
+                               channel,           // just pick 5 for fun
+                               RAW1394_ISO_SPEED_400,
+                               -1);         // irq_interval
+    if (rc) {
+        perror("raw1394_iso_xmit_init");
+        exit(1);
+    }
+    rc = raw1394_iso_xmit_start(handle, -1, -1);
+    if (rc) {
+        perror("raw1394_iso_xmit_start");
+        exit(1);
+    }
 
-    // start receiving
-    raw1394_iso_recv_start(handle, -1, -1, 0);
-    while (true)
-    {
-        rc = raw1394_loop_iterate(handle);
-        if (rc) break;
+    quadlet_t data = 0x0;
+    while (true) {
+        rc = raw1394_iso_xmit_write(handle,
+                                    (unsigned char *)&data,
+                                    4,
+                                    tag,
+                                    sy);
+        if (rc) {
+            perror("\nraw1394_iso_xmit_write");
+            break;
+        }
+//        data++;
+//        std::cout << "data = " << data << std::endl;
     }
 
     // stop, clean up & exit
