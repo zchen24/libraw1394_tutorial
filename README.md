@@ -18,7 +18,7 @@ This project is a byproduct, while I am learning to use libraw1394, which has a 
 - FCP 
 - Miscellaneous
 
-## Refernce  
+## References
 - API: http://www.dennedy.org/libraw1394/
 - Book: Anderson, Don. FireWire system architecture: IEEE 1394a. Addison-Wesley Longman Publishing Co., Inc., 1999.
 - Other example code: https://github.com/ytsutano/raw_omni
