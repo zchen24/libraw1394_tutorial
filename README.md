@@ -9,27 +9,21 @@ http://zchen24.github.io/libraw1394_tutorial/
 This project is a byproduct, while I am learning to use libraw1394, which has a very good documentation but needs some example or tutorial for new developers to get started. 
 
 ## List of tutorials 
-### 0 Getting started 
-
-### 1 Initialize FireWire handle and
-
-### 2 Address Range Map server
-
-### 3 Asynchronous read/write 
-
-### 4 Asynchronous broadcast
-
-### 5 Isochronous write
-
-### 6 FCP 
-
-### 7 Miscellaneous
-
+- Getting started 
+- Initialize FireWire handle and
+- Address Range Map server
+- Asynchronous read/write 
+- Asynchronous broadcast
+- Isochronous write
+- FCP 
+- Miscellaneous
 
 ## Refernce  
-Put all references here
+- API: http://www.dennedy.org/libraw1394/
+- Book: Anderson, Don. FireWire system architecture: IEEE 1394a. Addison-Wesley Longman Publishing Co., Inc., 1999.
+- Other example code: https://github.com/ytsutano/raw_omni
 
 ## Contact
 Zihan Chen  
-zihan.chen@jhu.edu  
+zihan[dot]chen[dot]jhu@gmail.com
 
